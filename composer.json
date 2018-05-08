@@ -1,7 +1,7 @@
 {
     "name": "innmind/json",
     "type": "library",
-    "description": "Library to easily expose REST APIs",
+    "description": "Type safe json encoder/decoder",
     "keywords": ["json"],
     "homepage": "http://github.com/Innmind/Json",
     "license": "MIT",
