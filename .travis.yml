@@ -3,7 +3,7 @@ php:
     - 7.2
     - nightly
 before_script:
-    - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then sed -i.bak 's/xdebug.max_nesting_level=256/xdebug.max_nesting_level=600/' ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi
+    - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then echo 'xdebug.max_nesting_level=600' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi
     - composer install
 script: vendor/bin/phpunit --coverage-clover=coverage.clover
 after_script:
