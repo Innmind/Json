@@ -37,9 +37,9 @@ final class Json
     /**
      * @param mixed $content
      */
-    public static function encode($content): string
+    public static function encode($content, int $options = 0): string
     {
-        $json = json_encode($content);
+        $json = json_encode($content, $options);
 
         self::throwOnError();
 
