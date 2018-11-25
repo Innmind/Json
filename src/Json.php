@@ -42,9 +42,9 @@ final class Json
      *
      * @throws Exception
      */
-    public static function encode($content, int $options = 0): string
+    public static function encode($content, int $options = 0, int $depth = 512): string
     {
-        $json = json_encode($content, $options);
+        $json = json_encode($content, $options, $depth);
 
         self::throwOnError();
 
