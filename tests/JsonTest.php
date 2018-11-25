@@ -25,6 +25,32 @@ class JsonTest extends TestCase
         $this->assertSame('{"foo":"bar"}', $json);
     }
 
+    public function testEncodeWithOption()
+    {
+        $json = Json::encode(['foo' => 'bar'], JSON_PRETTY_PRINT);
+
+        $expectedJson = <<<'JSON'
+{
+    "foo": "bar"
+}
+JSON;
+        $this->assertSame($expectedJson, $json);
+    }
+
+    public function testEncodeWithMaxDepth()
+    {
+        $json = Json::encode(['foo' => 'bar'], 0, 1);
+
+        $this->assertSame('{"foo":"bar"}', $json);
+    }
+
+    public function testThrowWhenExceedingSpecifiedMaxDepth()
+    {
+        $this->expectException(MaximumDepthExceeded::class);
+
+        Json::encode(['foo' => ['bar' => 'baz']], 0, 1);
+    }
+
     public function testDecode()
     {
         $content = Json::decode('{"foo":"bar"}');
