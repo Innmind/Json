@@ -25,6 +25,18 @@ class JsonTest extends TestCase
         $this->assertSame('{"foo":"bar"}', $json);
     }
 
+    public function testEncodeWithOption()
+    {
+        $json = Json::encode(['foo' => 'bar'], JSON_PRETTY_PRINT);
+
+        $expectedJson = <<<'JSON'
+{
+    "foo": "bar"
+}
+JSON;
+        $this->assertSame($expectedJson, $json);
+    }
+
     public function testDecode()
     {
         $content = Json::decode('{"foo":"bar"}');
