@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Innmind\Json;
 
 use Innmind\Json\Exception\{
+    Exception,
     MaximumDepthExceeded,
     StateMismatch,
     CharacterControlError,
@@ -24,6 +25,8 @@ final class Json
 
     /**
      * @return mixed
+     *
+     * @throws Exception
      */
     public static function decode(string $string)
     {
@@ -36,10 +39,12 @@ final class Json
 
     /**
      * @param mixed $content
+     *
+     * @throws Exception
      */
-    public static function encode($content): string
+    public static function encode($content, int $options = 0): string
     {
-        $json = json_encode($content);
+        $json = json_encode($content, $options);
 
         self::throwOnError();
 
