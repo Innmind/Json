@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace Innmind\Json;
 
 use Innmind\Json\Exception\{
-    Exception,
     MaximumDepthExceeded,
     StateMismatch,
     CharacterControlError,
@@ -26,67 +25,115 @@ final class Json
     /**
      * @return mixed
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public static function decode(string $string)
     {
-        $content = json_decode($string, true);
-
-        self::throwOnError();
-
-        return $content;
+        try {
+            return json_decode(
+                $string,
+                true,
+                512,
+                \JSON_THROW_ON_ERROR,
+            );
+        } catch (\JsonException $e) {
+            throw self::wrap($e);
+        }
     }
 
     /**
      * @param mixed $content
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public static function encode($content, int $options = 0, int $depth = 512): string
     {
-        $json = json_encode($content, $options, $depth);
-
-        self::throwOnError();
-
-        return $json;
+        try {
+            return json_encode(
+                $content,
+                $options | \JSON_THROW_ON_ERROR,
+                $depth
+            );
+        } catch (\JsonException $e) {
+            throw self::wrap($e);
+        }
     }
 
-    private static function throwOnError(): void
+    private static function wrap(\JsonException $e): \Exception
     {
-        switch (json_last_error()) {
-            case JSON_ERROR_NONE:
-                //pass
-                break;
-
+        switch ($e->getCode()) {
             case JSON_ERROR_DEPTH:
-                throw new MaximumDepthExceeded;
+                return new MaximumDepthExceeded(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
 
             case JSON_ERROR_STATE_MISMATCH:
-                throw new StateMismatch;
+                return new StateMismatch(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
 
             case JSON_ERROR_CTRL_CHAR:
-                throw new CharacterControlError;
+                return new CharacterControlError(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
 
             case JSON_ERROR_SYNTAX:
-                throw new SyntaxError;
+                return new SyntaxError(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
 
             case JSON_ERROR_UTF8:
-                throw new MalformedUTF8;
+                return new MalformedUTF8(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
 
             case JSON_ERROR_RECURSION:
-                throw new RecursiveReference;
+                return new RecursiveReference(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
 
             case JSON_ERROR_INF_OR_NAN:
-                throw new InfiniteOrNanCannotBeEncoded;
+                return new InfiniteOrNanCannotBeEncoded(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
 
             case JSON_ERROR_UNSUPPORTED_TYPE:
-                throw new ValueCannotBeEncoded;
+                return new ValueCannotBeEncoded(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
 
             case JSON_ERROR_INVALID_PROPERTY_NAME:
-                throw new PropertyCannotBeEncoded;
+                return new PropertyCannotBeEncoded(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
 
             case JSON_ERROR_UTF16:
-                throw new MalformedUTF16;
+                return new MalformedUTF16(
+                    $e->getMessage(),
+                    0,
+                    $e
+                );
+
+            default:
+                return $e;
         }
     }
 }
