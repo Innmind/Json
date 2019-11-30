@@ -9,7 +9,9 @@ matrix:
 before_script:
     - if [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then echo 'xdebug.max_nesting_level=600' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi
     - composer install
-script: vendor/bin/phpunit --coverage-clover=coverage.clover
+script:
+    - vendor/bin/phpunit --coverage-clover=coverage.clover
+    - vendor/bin/psalm
 after_script:
     - if [ -f coverage.clover ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
     - if [ -f coverage.clover ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
