@@ -30,9 +30,16 @@ final class Json
      */
     public static function decode(string $string)
     {
-        $content = json_decode($string, true);
-
-        self::throwOnError();
+        try {
+            $content = json_decode(
+                $string,
+                true,
+                512,
+                \JSON_THROW_ON_ERROR,
+            );
+        } catch (\JsonException $e) {
+            self::throw($e);
+        }
 
         return $content;
     }
@@ -44,16 +51,22 @@ final class Json
      */
     public static function encode($content, int $options = 0, int $depth = 512): string
     {
-        $json = json_encode($content, $options, $depth);
-
-        self::throwOnError();
+        try {
+            $json = json_encode(
+                $content,
+                $options | \JSON_THROW_ON_ERROR,
+                $depth
+            );
+        } catch (\JsonException $e) {
+            self::throw($e);
+        }
 
         return $json;
     }
 
-    private static function throwOnError(): void
+    private static function throw(\JsonException $e): void
     {
-        switch (json_last_error()) {
+        switch ($e->getCode()) {
             case JSON_ERROR_NONE:
                 //pass
                 break;
