@@ -67,10 +67,6 @@ final class Json
     private static function throw(\JsonException $e): void
     {
         switch ($e->getCode()) {
-            case JSON_ERROR_NONE:
-                //pass
-                break;
-
             case JSON_ERROR_DEPTH:
                 throw new MaximumDepthExceeded;
 
