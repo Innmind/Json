@@ -1,10 +1,8 @@
 # Json
 
-| `master` | `develop` |
-|----------|-----------|
-| [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Innmind/Json/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Innmind/Json/?branch=master) | [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Innmind/Json/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/Innmind/Json/?branch=develop) |
-| [![Code Coverage](https://scrutinizer-ci.com/g/Innmind/Json/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Innmind/Json/?branch=master) | [![Code Coverage](https://scrutinizer-ci.com/g/Innmind/Json/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/Innmind/Json/?branch=develop) |
-| [![Build Status](https://scrutinizer-ci.com/g/Innmind/Json/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Innmind/Json/build-status/master) | [![Build Status](https://scrutinizer-ci.com/g/Innmind/Json/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/Innmind/Json/build-status/develop) |
+[![Build Status](https://github.com/Innmind/JSON/workflows/CI/badge.svg)](https://github.com/Innmind/JSON/actions?query=workflow%3ACI)
+[![codecov](https://codecov.io/gh/Innmind/JSON/branch/develop/graph/badge.svg)](https://codecov.io/gh/Innmind/JSON)
+[![Type Coverage](https://shepherd.dev/github/Innmind/JSON/coverage.svg)](https://shepherd.dev/github/Innmind/JSON)
 
 Type safe json encode/decoder, the goal is to not leave errors unchecked.
 
