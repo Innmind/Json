@@ -29,7 +29,6 @@ jobs:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, intl
           coverage: xdebug
-          ini-values: xdebug.max_nesting_level=1024
       - name: Get Composer Cache Directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"

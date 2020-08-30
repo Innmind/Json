@@ -14,4 +14,7 @@
       <directory>./tests</directory>
     </testsuite>
   </testsuites>
+  <php>
+    <ini name="xdebug.max_nesting_level" value="1024"/>
+  </php>
 </phpunit>
