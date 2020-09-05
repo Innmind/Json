@@ -10,6 +10,7 @@ use Innmind\Json\{
     Exception\StateMismatch,
     Exception\CharacterControlError,
     Exception\MalformedUTF8,
+    Exception\MalformedUTF16,
     Exception\RecursiveReference,
     Exception\InfiniteOrNanCannotBeEncoded,
     Exception\ValueCannotBeEncoded,
@@ -98,6 +99,20 @@ JSON;
         } catch (MalformedUTF8 | CharacterControlError $e) {
             $this->assertTrue(true);
         }
+    }
+
+    public function testThrowOnCharacterControlError()
+    {
+        $this->expectException(CharacterControlError::class);
+
+        Json::decode(chr(23));
+    }
+
+    public function testThrowOnMalformedUTF16()
+    {
+        $this->expectException(MalformedUTF16::class);
+
+        Json::decode('["\ude00\ud83d"]');
     }
 
     public function testThrowOnRecursiveReference()
