@@ -1,6 +1,6 @@
 # Json
 
-[![Build Status](https://github.com/Innmind/JSON/workflows/CI/badge.svg)](https://github.com/Innmind/JSON/actions?query=workflow%3ACI)
+[![Build Status](https://github.com/Innmind/JSON/workflows/CI/badge.svg?branch=master)](https://github.com/Innmind/JSON/actions?query=workflow%3ACI)
 [![codecov](https://codecov.io/gh/Innmind/JSON/branch/develop/graph/badge.svg)](https://codecov.io/gh/Innmind/JSON)
 [![Type Coverage](https://shepherd.dev/github/Innmind/JSON/coverage.svg)](https://shepherd.dev/github/Innmind/JSON)
 
