@@ -10,6 +10,7 @@ use Innmind\Json\{
     Exception\StateMismatch,
     Exception\CharacterControlError,
     Exception\MalformedUTF8,
+    Exception\MalformedUTF16,
     Exception\RecursiveReference,
     Exception\InfiniteOrNanCannotBeEncoded,
     Exception\ValueCannotBeEncoded,
@@ -27,7 +28,7 @@ class JsonTest extends TestCase
 
     public function testEncodeWithOption()
     {
-        $json = Json::encode(['foo' => 'bar'], JSON_PRETTY_PRINT);
+        $json = Json::encode(['foo' => 'bar'], \JSON_PRETTY_PRINT);
 
         $expectedJson = <<<'JSON'
 {
@@ -70,7 +71,7 @@ JSON;
         $this->expectException(MaximumDepthExceeded::class);
         $depth = 0;
 
-        $array = ($deepen = function(array $array) use (&$deepen, &$depth): array {
+        $array = ($deepen = static function(array $array) use (&$deepen, &$depth): array {
             if ($depth >= 512) {
                 return $array;
             }
@@ -93,11 +94,25 @@ JSON;
     public function testThrowOnMalformedUTF8OrCharacterControlError()
     {
         try {
-            Json::decode('{"foo":"'.random_bytes(42).'"}');
+            Json::decode('{"foo":"'.\random_bytes(42).'"}');
             $this->fail('it should throw');
         } catch (MalformedUTF8 | CharacterControlError $e) {
             $this->assertTrue(true);
         }
+    }
+
+    public function testThrowOnCharacterControlError()
+    {
+        $this->expectException(CharacterControlError::class);
+
+        Json::decode(\chr(23));
+    }
+
+    public function testThrowOnMalformedUTF16()
+    {
+        $this->expectException(MalformedUTF16::class);
+
+        Json::decode('["\ude00\ud83d"]');
     }
 
     public function testThrowOnRecursiveReference()
@@ -113,13 +128,13 @@ JSON;
     {
         $this->expectException(InfiniteOrNanCannotBeEncoded::class);
 
-        Json::encode(['foo' => INF]);
+        Json::encode(['foo' => \INF]);
     }
 
     public function testThrowOnValueCannotBeEncoded()
     {
         $this->expectException(ValueCannotBeEncoded::class);
 
-        Json::encode(['foo' => tmpfile()]);
+        Json::encode(['foo' => \tmpfile()]);
     }
 }
