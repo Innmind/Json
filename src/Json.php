@@ -23,6 +23,8 @@ final class Json
     }
 
     /**
+     * @psalm-pure
+     *
      * @throws \Exception
      *
      * @return mixed
@@ -42,6 +44,8 @@ final class Json
     }
 
     /**
+     * @psalm-pure
+     *
      * @param mixed $content
      * @param int<1, 2147483647> $depth
      *
@@ -60,6 +64,9 @@ final class Json
         }
     }
 
+    /**
+     * @psalm-pure
+     */
     private static function wrap(\JsonException $e): \Exception
     {
         switch ($e->getCode()) {
