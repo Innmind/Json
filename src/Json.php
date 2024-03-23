@@ -7,6 +7,7 @@ use Innmind\Json\Exception\{
     MaximumDepthExceeded,
     StateMismatch,
     CharacterControlError,
+    Exception,
     SyntaxError,
     MalformedUTF8,
     RecursiveReference,
@@ -15,6 +16,7 @@ use Innmind\Json\Exception\{
     PropertyCannotBeEncoded,
     MalformedUTF16,
 };
+use Innmind\Immutable\Maybe;
 
 final class Json
 {
@@ -40,6 +42,20 @@ final class Json
             );
         } catch (\JsonException $e) {
             throw self::wrap($e);
+        }
+    }
+
+    /**
+     * @psalm-pure
+     *
+     * @return Maybe<mixed>
+     */
+    public static function maybeDecode(string $string): Maybe
+    {
+        try {
+            return Maybe::just(self::decode($string));
+        } catch (Exception $e) {
+            return Maybe::nothing();
         }
     }
 

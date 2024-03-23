@@ -59,11 +59,29 @@ JSON;
         $this->assertSame(['foo' => 'bar'], $content);
     }
 
+    public function testMaybeDecode()
+    {
+        $content = Json::maybeDecode('{"foo":"bar"}');
+
+        $this->assertSame(['foo' => 'bar'], $content->match(
+            static fn($content) => $content,
+            static fn() => null,
+        ));
+    }
+
     public function testThrowOnSyntaxError()
     {
         $this->expectException(SyntaxError::class);
 
         Json::decode('{"foo"');
+    }
+
+    public function testReturnNothingOnDecodingError()
+    {
+        $this->assertFalse(Json::maybeDecode('{"foo"')->match(
+            static fn() => true,
+            static fn() => false,
+        ));
     }
 
     public function testThrowOnMaximumDepthExceeded()
