@@ -85,79 +85,58 @@ final class Json
      */
     private static function wrap(\JsonException $e): \Exception
     {
-        switch ($e->getCode()) {
-            case \JSON_ERROR_DEPTH:
-                return new MaximumDepthExceeded(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            case \JSON_ERROR_STATE_MISMATCH:
-                return new StateMismatch(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            case \JSON_ERROR_CTRL_CHAR:
-                return new CharacterControlError(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            case \JSON_ERROR_SYNTAX:
-                return new SyntaxError(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            case \JSON_ERROR_UTF8:
-                return new MalformedUTF8(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            case \JSON_ERROR_RECURSION:
-                return new RecursiveReference(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            case \JSON_ERROR_INF_OR_NAN:
-                return new InfiniteOrNanCannotBeEncoded(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            case \JSON_ERROR_UNSUPPORTED_TYPE:
-                return new ValueCannotBeEncoded(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            case \JSON_ERROR_INVALID_PROPERTY_NAME:
-                return new PropertyCannotBeEncoded(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            case \JSON_ERROR_UTF16:
-                return new MalformedUTF16(
-                    $e->getMessage(),
-                    0,
-                    $e,
-                );
-
-            default:
-                return $e;
-        }
+        return match ($e->getCode()) {
+            \JSON_ERROR_DEPTH => new MaximumDepthExceeded(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            \JSON_ERROR_STATE_MISMATCH => new StateMismatch(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            \JSON_ERROR_CTRL_CHAR => new CharacterControlError(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            \JSON_ERROR_SYNTAX => new SyntaxError(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            \JSON_ERROR_UTF8 => new MalformedUTF8(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            \JSON_ERROR_RECURSION => new RecursiveReference(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            \JSON_ERROR_INF_OR_NAN => new InfiniteOrNanCannotBeEncoded(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            \JSON_ERROR_UNSUPPORTED_TYPE => new ValueCannotBeEncoded(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            \JSON_ERROR_INVALID_PROPERTY_NAME => new PropertyCannotBeEncoded(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            \JSON_ERROR_UTF16 => new MalformedUTF16(
+                $e->getMessage(),
+                0,
+                $e,
+            ),
+            default => $e,
+        };
     }
 }
