@@ -9,6 +9,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macOS-latest]
         php-version: ['8.2', '8.3']
+        dependency-versions: ['lowest', 'highest']
     name: 'PHPUnit - PHP/${{ matrix.php-version }} - OS/${{ matrix.os }}'
     steps:
       - name: Checkout
@@ -21,6 +22,8 @@ jobs:
           coverage: none
       - name: Composer
         uses: "ramsey/composer-install@v2"
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
       - name: PHPUnit
         run: vendor/bin/phpunit --coverage-clover=coverage.clover
       - uses: codecov/codecov-action@v1
@@ -31,6 +34,7 @@ jobs:
     strategy:
       matrix:
         php-version: ['8.2', '8.3']
+        dependency-versions: ['lowest', 'highest']
     name: 'Psalm - PHP/${{ matrix.php-version }}'
     steps:
       - name: Checkout
@@ -43,6 +47,8 @@ jobs:
           coverage: none
       - name: Composer
         uses: "ramsey/composer-install@v2"
+        with:
+          dependency-versions: ${{ matrix.dependencies }}
       - name: Psalm
         run: vendor/bin/psalm --shepherd
   cs:
