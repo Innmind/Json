@@ -32,8 +32,5 @@
         "phpunit/phpunit": "~9.0",
         "vimeo/psalm": "~5.23",
         "innmind/coding-standard": "~2.0"
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit --colors=always"
     }
 }
