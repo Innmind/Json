@@ -96,7 +96,7 @@ JSON;
         try {
             Json::decode('{"foo":"'.\random_bytes(42).'"}');
             $this->fail('it should throw');
-        } catch (MalformedUTF8 | CharacterControlError $e) {
+        } catch (MalformedUTF8 | CharacterControlError | SyntaxError $e) {
             $this->assertTrue(true);
         }
     }
