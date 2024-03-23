@@ -15,7 +15,7 @@
         "issues": "http://github.com/Innmind/Json/issues"
     },
     "require": {
-        "php": "~7.4 || ~8.0",
+        "php": "~8.2",
         "ext-json": "*"
     },
     "autoload": {

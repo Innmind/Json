@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest]
-        php-version: ['7.4', '8.0']
+        php-version: ['8.2', '8.3']
     name: 'PHPUnit - PHP/${{ matrix.php-version }} - OS/${{ matrix.os }}'
     steps:
       - name: Checkout
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['7.4', '8.0']
+        php-version: ['8.2', '8.3']
     name: 'Psalm - PHP/${{ matrix.php-version }}'
     steps:
       - name: Checkout
@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['7.4']
+        php-version: ['8.2']
     name: 'CS'
     steps:
       - name: Checkout
@@ -98,4 +98,4 @@ jobs:
       - name: Install Dependencies
         run: composer install --no-progress
       - name: CS
-        run: vendor/bin/php-cs-fixer fix --diff --dry-run --diff-format udiff
+        run: vendor/bin/php-cs-fixer fix --diff --dry-run
