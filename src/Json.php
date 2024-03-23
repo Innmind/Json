@@ -28,10 +28,8 @@ final class Json
      * @psalm-pure
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
-    public static function decode(string $string)
+    public static function decode(string $string): mixed
     {
         try {
             return \json_decode(
@@ -62,12 +60,11 @@ final class Json
     /**
      * @psalm-pure
      *
-     * @param mixed $content
      * @param int<1, 2147483647> $depth
      *
      * @throws \Exception
      */
-    public static function encode($content, int $options = 0, int $depth = 512): string
+    public static function encode(mixed $content, int $options = 0, int $depth = 512): string
     {
         try {
             return \json_encode(
