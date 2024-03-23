@@ -19,7 +19,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           extensions: mbstring, intl
-          coverage: none
+          coverage: xdebug
       - name: Composer
         uses: "ramsey/composer-install@v2"
         with:
