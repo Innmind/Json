@@ -43,6 +43,7 @@ final class Json
 
     /**
      * @param mixed $content
+     * @param int<1, 2147483647> $depth
      *
      * @throws \Exception
      */
