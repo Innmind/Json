@@ -67,11 +67,20 @@ final class Json
     public static function encode(mixed $content, int $options = 0, int $depth = 512): string
     {
         try {
-            return \json_encode(
+            $content = \json_encode(
                 $content,
                 $options | \JSON_THROW_ON_ERROR,
                 $depth,
             );
+
+            if ($content === false) {
+                // This case should not happen since we use the option to throw
+                // on error. But Psalm doesn't understand that so we have to
+                // handle the `false` case.
+                throw new \JsonException;
+            }
+
+            return $content;
         } catch (\JsonException $e) {
             throw self::wrap($e);
         }
