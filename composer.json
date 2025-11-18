@@ -15,7 +15,7 @@
         "issues": "http://github.com/Innmind/Json/issues"
     },
     "require": {
-        "php": "~8.2",
+        "php": "~8.4",
         "ext-json": "*",
         "innmind/immutable": "~5.3"
     },

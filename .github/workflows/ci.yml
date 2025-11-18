@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest]
-        php-version: ['8.2', '8.3', '8.4']
+        php-version: ['8.4']
         dependency-versions: ['lowest', 'highest']
     name: 'PHPUnit'
     steps:
@@ -30,8 +30,6 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
   psalm:
-    uses: innmind/github-workflows/.github/workflows/psalm-matrix.yml@main
+    uses: innmind/github-workflows/.github/workflows/psalm-matrix.yml@next
   cs:
-    uses: innmind/github-workflows/.github/workflows/cs.yml@main
-    with:
-      php-version: '8.2'
+    uses: innmind/github-workflows/.github/workflows/cs.yml@next
