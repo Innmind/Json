@@ -17,7 +17,7 @@
     "require": {
         "php": "~8.4",
         "ext-json": "*",
-        "innmind/immutable": "~5.3"
+        "innmind/immutable": "dev-next"
     },
     "autoload": {
         "psr-4": {
