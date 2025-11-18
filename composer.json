@@ -31,7 +31,7 @@
     },
     "require-dev": {
         "phpunit/phpunit": "~10.0",
-        "vimeo/psalm": "~5.23|dev-master",
+        "innmind/static-analysis": "^1.2.1",
         "innmind/coding-standard": "~2.0"
     }
 }
