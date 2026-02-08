@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macOS-latest]
-        php-version: ['8.2', '8.3', '8.4']
+        php-version: ['8.4', '8.5']
         dependency-versions: ['lowest', 'highest']
     name: 'PHPUnit'
     steps:
@@ -33,5 +33,3 @@ jobs:
     uses: innmind/github-workflows/.github/workflows/psalm-matrix.yml@main
   cs:
     uses: innmind/github-workflows/.github/workflows/cs.yml@main
-    with:
-      php-version: '8.2'
