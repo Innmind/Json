@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.0 - 2026-02-08
+
+### Changed
+
+- Requires PHP `8.4`
+- Requires `innmind/immutable:~6.0`
+
 ## 1.4.0 - 2024-03-23
 
 ### Added
