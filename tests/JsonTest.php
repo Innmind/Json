@@ -49,7 +49,7 @@ JSON;
     {
         $this->expectException(MaximumDepthExceeded::class);
 
-        Json::encode(['foo' => ['bar' => 'baz']], 0, 1);
+        $_ = Json::encode(['foo' => ['bar' => 'baz']], 0, 1);
     }
 
     public function testDecode()
@@ -73,7 +73,7 @@ JSON;
     {
         $this->expectException(SyntaxError::class);
 
-        Json::decode('{"foo"');
+        $_ = Json::decode('{"foo"');
     }
 
     public function testReturnNothingOnDecodingError()
@@ -99,20 +99,20 @@ JSON;
             return $deepen(['foo' => $array]);
         })(['foo' => 'bar']);
 
-        Json::encode($array);
+        $_ = Json::encode($array);
     }
 
     public function testThrowOnStateMismatch()
     {
         $this->expectException(StateMismatch::class);
 
-        Json::decode('{"foo":"bar"]');
+        $_ = Json::decode('{"foo":"bar"]');
     }
 
     public function testThrowOnMalformedUTF8OrCharacterControlError()
     {
         try {
-            Json::decode('{"foo":"'.\random_bytes(42).'"}');
+            $_ = Json::decode('{"foo":"'.\random_bytes(42).'"}');
             $this->fail('it should throw');
         } catch (MalformedUTF8 | CharacterControlError | SyntaxError $e) {
             $this->assertTrue(true);
@@ -123,14 +123,14 @@ JSON;
     {
         $this->expectException(CharacterControlError::class);
 
-        Json::decode(\chr(23));
+        $_ = Json::decode(\chr(23));
     }
 
     public function testThrowOnMalformedUTF16()
     {
         $this->expectException(MalformedUTF16::class);
 
-        Json::decode('["\ude00\ud83d"]');
+        $_ = Json::decode('["\ude00\ud83d"]');
     }
 
     public function testThrowOnRecursiveReference()
@@ -139,20 +139,20 @@ JSON;
         $array = ['foo' => 'bar', 'bar' => null];
         $array['bar'] = &$array;
 
-        Json::encode($array);
+        $_ = Json::encode($array);
     }
 
     public function testThrowOnInfiniteOrNanCannotBeEncoded()
     {
         $this->expectException(InfiniteOrNanCannotBeEncoded::class);
 
-        Json::encode(['foo' => \INF]);
+        $_ = Json::encode(['foo' => \INF]);
     }
 
     public function testThrowOnValueCannotBeEncoded()
     {
         $this->expectException(ValueCannotBeEncoded::class);
 
-        Json::encode(['foo' => \tmpfile()]);
+        $_ = Json::encode(['foo' => \tmpfile()]);
     }
 }
